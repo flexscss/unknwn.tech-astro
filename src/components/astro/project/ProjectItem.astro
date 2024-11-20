@@ -49,8 +49,7 @@ const { Content } = await project.render();
         )
         : (
         <a href={url} class="hover:text-primary">
-          🔗{Astro.url.origin}
-          {url}
+          🔗{Astro.url.origin}{url}
         </a>
       ))
   }
