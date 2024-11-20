@@ -9,7 +9,8 @@
     "preview": "astro preview --host",
     "astro": "astro",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "deploy": "npm run build && sudo cp -r dist/* /var/www/html/unknwn.tech/"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
