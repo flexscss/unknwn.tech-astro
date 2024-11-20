@@ -1,0 +1,16 @@
+---
+import GithubGif from '@/assets/images/markdown/github.gif'
+import { Image } from 'astro:assets'
+
+const { href } = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  class="flex items-center justify-center gap-2 p-4
+	border border-zinc-300 bg-zinc-0 rounded-lg
+	hover:text-primary hover:border-primary hover:bg-primary/5"
+>
+  <Image src={GithubGif} alt="Github" class="w-auto m-0 sm:m-0 h-10" /> View on Github
+</a>

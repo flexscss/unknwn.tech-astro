@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets'
+
+const { href, image, target = '_self', loading = 'lazy' } = Astro.props;
+---
+
+<a
+  href={href}
+  target={target}
+  class:list={Astro.props.class}
+  class="flex items-center justify-center gap-2 p-4 border border-zinc-300 bg-zinc-0 rounded-lg text-lg hover:text-primary hover:border-primary hover:bg-primary/5"
+>
+  {image && <Image src={image} alt="Icon" class="w-auto m-0 h-8" loading={loading} />}
+  <slot />
+</a>

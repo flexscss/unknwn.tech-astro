@@ -1,0 +1,23 @@
+---
+import Footer from '@/components/astro/fragments/navigation/Footer.astro'
+import Header from '@/components/astro/fragments/navigation/Header.astro'
+import BaseHead from '@/components/astro/shared/utils/BaseHead.astro'
+import { ViewTransitions } from 'astro:transitions'
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <ViewTransitions />
+  </head>
+  <body>
+    <Header />
+    <div class="pt-28 sm:px-4">
+      <slot />
+    </div>
+    <Footer />
+  </body>
+</html>

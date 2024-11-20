@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets'
+
+type Props = {
+  name: string
+  class?: string
+}
+
+const { name } = Astro.props
+
+const logos = await Astro.glob('@/assets/images/home/logos/*')
+const logo = logos.find((logo) => {
+  return logo.default.src.split('.')[0].split('/').pop() === name.toLowerCase()
+});
+---
+
+<div
+  class:list={Astro.props.class}
+  class="flex items-center text-sm text-white bg-gradient-to-r from-zinc-900 to-secondary px-3 py-0.5 rounded"
+>
+  {logo && <Image src={logo.default} alt={name} class="mr-1.5 w-auto" />}
+  {name}
+</div>

@@ -1,0 +1,40 @@
+---
+title: 'Javascript Playground'
+alias: 'javascript-playground'
+description: 'My fun little project for playing around with real-time editing of HTML, JavaScript, and CSS. Think JSFiddle, but way simpler.'
+heroImage: '/examples/code-editor/hero.png'
+heroImageBlurAmount: 5
+order: 3
+---
+import Container from '@/components/astro/markdown/Container.astro'
+
+<Container>
+
+The idea came from tools like JSFiddle, but I wanted something simpler and more focused, just for messing around. It’s built with TypeScript, Vue 3, CodeMirror, and TailwindCSS, which made it super fun to put together.
+
+## ✨ What makes it cool?
+
+- You can play with code and see the results live.
+- It’s lightweight and easy to throw into any small project.
+- Built with modern tools, so it’s snappy and clean.
+
+It’s not a polished product, just a playground for fellow code enthusiasts to experiment and have fun!
+
+import GithubLink from '@/components/astro/markdown/GithubLink.astro'
+
+<GithubLink href="https://github.com/flexscss/unknwn.tech-astro" />
+
+**Play around with it!** The component is right below — you can resize the panels, and changes are applied with a 1-second debounce to keep things smooth.
+</Container>
+
+
+import Playground from '@/components/vue/examples/playground/Playground.vue'
+
+<div class="relative h-screen sm:hidden">
+	<div class="p-12 h-full">
+		<Playground client:load class="w-full h-full rounded-3xl overflow-hidden" />
+	</div>
+</div>
+<div class="hidden sm:block">
+	**For showing app open page on desktop**
+</div>

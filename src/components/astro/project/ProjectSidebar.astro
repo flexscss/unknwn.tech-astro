@@ -1,0 +1,138 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import FormattedDate from '@/components/astro/shared/utils/FormattedDate.astro'
+import { getEntries } from 'astro:content'
+
+type Props = {
+  projects: CollectionEntry<'project'>[]
+}
+
+const { projects } = Astro.props
+
+const subProjects: Record<string, CollectionEntry<'project'>[]> = {}
+
+for (const project of projects) {
+  if (project.data.subProjects) {
+    const subProjectEntries = await getEntries(project.data.subProjects)
+    subProjects[project.slug] = subProjectEntries
+  }
+}
+
+function trimText(text: string) {
+  return text.length > 30 ? `${text.substring(0, 30)}...` : text
+}
+---
+
+<div
+  class="sidebar w-[280px] rounded-lg p-5 bg-zinc-50 translate-y-[60px] translate-x-[-320px]"
+>
+  {
+    projects.map(project => (
+      <ul class="list-none mb-1 mt-1">
+        <li class="ml-2">
+          <a
+            href={`#${project.slug}`}
+            class="text-sm font-medium transition-colors"
+          >
+            {project.data.title}
+            {project.data.dateStart && project.data.dateEnd && (
+              <>
+                <span>-</span>
+                <div class="inline text-[10px]">
+                  <FormattedDate date={project.data.dateStart} />
+                  <span>-</span>
+                  <FormattedDate date={project.data.dateEnd} />
+                </div>
+              </>
+            )}
+          </a>
+          {subProjects[project.slug] && (
+            <ul class="list-none">
+              {subProjects[project.slug].map(subProject => (
+                <li class="ml-2 my-1">
+                  <a
+                    href={`#${subProject.slug}`}
+                    class="text-xs transition-colors"
+                  >
+                    {trimText(subProject.data.title)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      </ul>
+    ))
+  }
+</div>
+
+<style>
+  @media (max-width: 1340px) {
+    .sidebar {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('astro:page-load', () => {
+  const sidebarLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('.sidebar a')
+  )
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>('div[id]')
+  )
+
+  let currentHighlight: HTMLAnchorElement | null = null
+
+  let scrollTimeout: number | null = null
+
+  sidebarLinks.forEach((link) => {
+    link.addEventListener('click', (event: MouseEvent) => {
+      event.preventDefault()
+      const targetId = link.getAttribute('href')?.substring(1) ?? ''
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const offsetPosition
+          = targetElement.getBoundingClientRect().top + window.scrollY - 100
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+      }
+    })
+  })
+
+  function highlightLink(sectionId: string) {
+    const newHighlight = sidebarLinks.find(
+      link => link.getAttribute('href') === `#${sectionId}`
+    )
+    if (newHighlight && newHighlight !== currentHighlight) {
+      currentHighlight?.classList.remove('text-primary')
+      newHighlight.classList.add('text-primary')
+      currentHighlight = newHighlight
+    }
+  }
+
+  function findClosestSection() {
+    let closestSection: HTMLElement | null = null
+    let closestDistance = Infinity
+
+    sections.forEach((section) => {
+      const distance = Math.abs(section.getBoundingClientRect().top)
+      if (distance < closestDistance) {
+        closestDistance = distance
+        closestSection = section
+      }
+    })
+
+    if (closestSection) highlightLink((closestSection as HTMLElement).id)
+  }
+
+  function handleScroll() {
+    if (scrollTimeout) clearTimeout(scrollTimeout)
+    scrollTimeout = window.setTimeout(findClosestSection, 100)
+  }
+
+  window.addEventListener('scroll', handleScroll)
+
+  findClosestSection()
+})
+</script>

@@ -1,0 +1,30 @@
+---
+import AstroLogo from '@/assets/images/shared/logos/astro.svg'
+import { Image } from 'astro:assets'
+
+const today = new Date();
+---
+
+<footer class="pt-20 pb-8">
+  <div class="flex flex-col items-center justify-center mt-4">
+    <a
+      href="https://t.me/maclonaky"
+      target="_blank"
+      class="block text-white text-lg font-semibold rounded-lg px-20 sm:px-8
+      bg-cover bg-center"
+      style="background-image: url(/images/footer/bg.gif);"
+    >
+      https://t.me/maclonaky
+    </a>
+    <div class="mt-4">
+      &copy; {today.getFullYear()} Unknwn. All rights reserved.
+    </div>
+    <a
+      href="https://astro.build"
+      target="_blank"
+      class="flex justify-center items-center mt-2"
+    >
+      Powered by <Image src={AstroLogo} alt="Astro Logo" class="w-auto h-10" />
+    </a>
+  </div>
+</footer>

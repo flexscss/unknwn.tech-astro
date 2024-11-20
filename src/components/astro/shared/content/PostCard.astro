@@ -1,0 +1,40 @@
+---
+import Container from '@/components/astro/markdown/Container.astro'
+import { getImage } from '@/utils/getImage.ts'
+import { Image } from 'astro:assets'
+
+const { title, description, heroImage, heroImageBlurAmount, widthContainer }
+  = Astro.props
+
+const image = getImage(heroImage)
+const blurAmount = heroImageBlurAmount || 40
+
+const Component = widthContainer ? Container : 'Fragment';
+---
+
+<div class="prose-xl sm:prose-base relative">
+  <Component>
+    {
+      image
+      ? (
+        <div class="w-[150%] h-[440px] sm:w-[100%] sm:h-[280px] translate-x-[calc(-100%/6)] sm:translate-x-0 overflow-hidden rounded-2xl mb-8">
+          <div class="flex flex-col justify-between absolute z-20 top-0 left-0 h-full p-8 sm:p-5">
+            <h1 class="text-white sm:text-3xl sm:mb-4">{title}</h1>
+            <div class="text-white">{description}</div>
+          </div>
+          <Image
+            src={image()}
+            alt={title}
+            loading="eager"
+            style={`filter: blur(${blurAmount}px)`}
+            class="w-full h-full object-cover scale-125 sm:scale-150 m-0"
+          />
+        </div>
+      )
+      : (
+        <h1>{title}</h1>
+      )
+    }
+  </Component>
+  <slot />
+</div>

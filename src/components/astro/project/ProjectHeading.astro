@@ -1,0 +1,20 @@
+---
+type Props = {
+  level: 1 | 2 | 3 | 4 | 5 | 6
+  class: string
+}
+
+const { level } = Astro.props
+
+const classes = {
+  'text-3xl': level === 2,
+  'text-2xl': level === 3,
+  'text-xl': level >= 4
+}
+
+const Heading = `h${level}`;
+---
+
+<Heading class:list={[Astro.props.class, classes]}>
+  <slot />
+</Heading>

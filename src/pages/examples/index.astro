@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import PostCard from '@/components/astro/shared/content/PostCard.astro'
+import Base from '@/layouts/Base.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/utils/consts.ts'
+import { getCollection } from 'astro:content'
+
+const examples: CollectionEntry<'example'>[] = (
+  await getCollection('example')
+).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <div class="prose-xl sm:prose-base">
+    <h1>Private projects showcase</h1>
+    <p class="text-gray-600 mb-4">
+      I’ve got a treasure chest of private projects—over
+      <span
+        class="font-semibold text-gray-800"
+      >
+        90 repositories
+      </span>
+      on GitHub, most of them tied to commercial development. 💼
+    </p>
+    <p class="text-gray-600 mb-6">
+      If you’re interested in working with me, I’d be happy to share snippets of
+      code from projects that aren’t locked behind an
+      <span
+        class="font-semibold text-gray-800"
+      >
+        NDA
+      </span>
+      .<br />Let’s build something awesome together! 🚀
+    </p>
+  </div>
+  <div class="mt-14 sm:mt-10">
+    {
+      examples.map(example => (
+        <a
+          href={`/examples/${example.data.alias}`}
+          class="block mb-16 sm:mb-8 hover:opacity-80 transition-opacity duration-300"
+        >
+          <PostCard {...example.data} />
+        </a>
+      ))
+    }
+  </div>
+</Base>

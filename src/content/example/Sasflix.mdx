@@ -1,0 +1,52 @@
+---
+title: 'Sasflix Test App'
+alias: 'sasflix-nuxt'
+description: 'A straightforward test project on TypeScript and Nuxt 3, displaying posts from DummyJSON with basic interactivity.'
+heroImage: '/examples/sasflix/hero.png'
+heroImageBlurAmount: 5
+order: 4
+---
+import Container from '@/components/astro/markdown/Container.astro'
+import Sasflix from '@/components/vue/examples/sasflix/Sasflix.vue'
+
+<Container>
+Sasflix Test App is a simple test task built with TypeScript, Nuxt 3, Pinia and TailwindCSS, designed to fetch and display posts from DummyJSON. The app shows 5 posts on the homepage, allows users to open them, like posts, and delete comments with actions stored in cookies.
+
+What makes this project interesting is how I adapted the Nuxt app to run within Astro. By implementing hash-based routing, the app remains fully functional while embedded in Astro. With minimal adjustments, it’s possible to move API calls from Vue components to Astro, making the app fully SSR-compatible.
+
+## ✨ Features:
+
+- Reworked the Nuxt app to run inside Astro with hash routing.
+- Maintains full functionality, including dynamic routing and interactivity.
+- Demonstrates how easily a Vue app can be integrated into an Astro environment.
+- Can be further optimized for SSR with slight adjustments to API logic
+
+import GithubLink from '@/components/astro/markdown/GithubLink.astro'
+
+
+<div class="grid grid-cols-2 sm:grid-cols-1 gap-4 text-center">
+	<div>
+		**Nuxt app**
+		<GithubLink href="https://github.com/flexscss/unknwn.tech-astro" class="w-full" />
+	</div>
+	<div>
+		**Vue app inside Astro**
+		<GithubLink href="https://github.com/flexscss/unknwn.tech-astro" class="w-full" />
+	</div>
+</div>
+
+**Check it out below!** The app works just like in Nuxt but runs smoothly inside Astro, showcasing its adaptability.
+</Container>
+
+
+<div class="relative sm:hidden">
+	<div class="mx-auto mt-14 w-[1200px] bg-white rounded-3xl">
+		<div class="p-14 sm:p-0">
+			<Sasflix client:load class="w-full h-full" />
+		</div>
+	</div>
+</div>
+
+<div class="hidden sm:block">
+	**For showing app open page on desktop**
+</div>

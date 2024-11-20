@@ -1,0 +1,23 @@
+---
+import PostCard from '@/components/astro/shared/content/PostCard.astro'
+import BaseFullwidth from '@/layouts/BaseFullwidth.astro'
+import { type CollectionEntry, getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const examples = await getCollection('example')
+  return examples.map(example => ({
+    params: { slug: example.data.alias },
+    props: example
+  }))
+}
+type Props = CollectionEntry<'example'>
+
+const example = Astro.props
+const { Content } = await example.render();
+---
+
+<BaseFullwidth {...example.data}>
+  <PostCard {...example.data} widthContainer={true}>
+    <Content />
+  </PostCard>
+</BaseFullwidth>

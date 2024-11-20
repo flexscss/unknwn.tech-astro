@@ -1,0 +1,35 @@
+---
+title: 'My Astro Site'
+alias: 'my-astro-site'
+description: 'My fun little project for playing around with real-time editing of HTML, JavaScript, and CSS. Think JSFiddle, but way simpler.'
+heroImage: '/examples/my-astro-site/hero.webp'
+heroImageBlurAmount: 7
+order: 1
+---
+import { Image } from 'astro:assets'
+import Container from '@/components/astro/markdown/Container.astro'
+
+<Container>
+Hey there! This is my little corner of the web, built on Astro—a playground for small projects and experiments.  
+
+Previously, this site ran on Nuxt 2, which, let’s be honest, sounds *so 2020* (and kind of scandalous in 2024, haha).  
+I decided to switch to a lightweight MPA that still lets me write in Vue when needed.  
+
+### Why Not Nuxt 3? 🤔  
+Well, I wanted to try something fresh. Astro’s concept intrigued me, and honestly, I’m all about keeping things snappy and functional. This site, for instance, is mainly for content, so why drag in a bunch of JavaScript? You don’t need it to read text, right?  
+
+Technology evolves, but somehow websites keep getting slower. Modern frontend sometimes feels like we're building a landing page with a FAANG-level stack. Come on, people—let’s simplify! Luckily, the trend seems to be heading in that direction.  
+
+import GithubLink from '@/components/astro/markdown/GithubLink.astro'
+
+<GithubLink href="https://github.com/flexscss/unknwn.tech-astro" />
+
+import Lighthouse from '@/assets/images/examples/my-astro-site/lighthouse.png'
+
+Oh, and here’s a pretty picture for you. Enjoy! 😊
+
+<div class="flex items-center justify-center">
+	<Image src={Lighthouse} alt="Lighthouse" class="w-[150%] sm:w-[100%] rounded-2xl max-w-none" />
+</div>
+
+</Container>

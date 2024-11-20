@@ -1,0 +1,179 @@
+---
+const techTags = {
+  languages: [
+    'JavaScript',
+    'Python',
+    'Java',
+    'C#',
+    'Ruby',
+    'Go',
+    'PHP',
+    'Swift',
+    'Rust',
+    'Kotlin',
+    'TypeScript',
+    'Dart',
+    'Scala',
+    'C++',
+    'Shell',
+    'Elixir',
+    'Haskell',
+    'Clojure',
+    'Lua',
+    'Perl'
+  ],
+  frameworks: [
+    'React',
+    'Vue.js',
+    'Angular',
+    'Svelte',
+    'Ember.js',
+    'Backbone.js',
+    'Next.js',
+    'Nuxt.js',
+    'Meteor',
+    'Express',
+    'Django',
+    'Ruby on Rails',
+    'ASP.NET',
+    'Flask',
+    'Spring',
+    'Laravel',
+    'Gatsby',
+    'Electron',
+    'PhoneGap',
+    'Quasar'
+  ],
+  libs: [
+    'jQuery',
+    'Lodash',
+    'Axios',
+    'Moment.js',
+    'D3.js',
+    'Chart.js',
+    'Three.js',
+    'Redux',
+    'MobX',
+    'Semantic UI',
+    'Bootstrap',
+    'Tailwind CSS',
+    'Ant Design',
+    'Material-UI',
+    'Formik',
+    'RxJS',
+    'NextAuth.js',
+    'Socket.io',
+    'PWA',
+    'Jest'
+  ],
+  backendLibs: [
+    'Express',
+    'Koa',
+    'Socket.io',
+    'Hapi.js',
+    'NestJS',
+    'Fastify',
+    'Spring Boot',
+    'Django REST Framework',
+    'Flask',
+    'Ruby on Rails',
+    'Laravel',
+    'ASP.NET Core',
+    'Bottle',
+    'Tornado',
+    'FastAPI',
+    'Sails.js',
+    'GraphQL',
+    'Phoenix',
+    'Chalice',
+    'Actix-web'
+  ]
+}
+
+type Props = {
+  class?: string
+  color?: 'light' | 'dark'
+}
+
+const { color = 'dark' } = Astro.props;
+---
+
+<div
+  class="absolute pt-14 top-0 left-0 w-full opacity-30 select-none"
+  style="mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 10%, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);"
+  class:list={Astro.props.class}
+>
+  <div
+    style="mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 20%, rgb(0, 0, 0) 90%, rgba(0, 0, 0, 0) 100%);"
+  >
+    {
+      Object.values(techTags).map(item => (
+        <div class="w-full overflow-hidden mb-10">
+          <div class="marquee flex -translate-x-0 max-w-full w-full max-h-full h-full will-change-transform">
+            <div class="marquee-list flex flex-nowrap">
+              {item.map(item => (
+                <div
+                  class="px-5 py-2 mr-10 border rounded-md border-zinc-300 whitespace-nowrap"
+                  class:list={[
+                    { 'border-zinc-300': color === 'dark' },
+                    { 'border-white text-white': color === 'light' }
+                  ]}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+const animations: Animation[] = []
+let times: CSSNumberish[] = []
+
+document.addEventListener('astro:page-load', () => {
+  const marqueeElements = document.querySelectorAll<HTMLElement>('.marquee')
+
+  marqueeElements.forEach((marquee, index) => {
+    const marqueeList = marquee.querySelector<HTMLElement>('.marquee-list')
+    if (!marqueeList) {
+      return
+    }
+
+    const width = marqueeList.scrollWidth
+    const numberOfCopies = 2
+
+    for (let i = 0; i < numberOfCopies; i++) {
+      const clone = marqueeList.cloneNode(true) as HTMLElement
+      marqueeList.parentNode?.appendChild(clone)
+    }
+
+    const isReversed = index % 2 !== 0
+    const animation = marquee.animate(
+      [
+        { transform: 'translateX(0)' },
+        { transform: `translateX(-${width}px)` }
+      ],
+      {
+        duration: 100000,
+        iterations: Infinity,
+        easing: 'linear',
+        fill: 'both',
+        direction: isReversed ? 'reverse' : 'normal'
+      }
+    )
+
+    animations[index] = animation
+    if (times[index] !== undefined) {
+      animation.currentTime = times[index]
+    }
+  })
+})
+
+document.addEventListener('astro:before-swap', () => {
+  times = animations.map(animation => animation.currentTime ?? 0)
+})
+</script>

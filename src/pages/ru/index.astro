@@ -1,0 +1,70 @@
+---
+import EnglishIcon from '@/assets/images/shared/logos/english3.svg'
+import PdfIcon from '@/assets/images/shared/logos/pdf.svg'
+import TelegramIcon from '@/assets/images/shared/logos/tg.svg'
+import HeroMarquee from '@/components/astro/fragments/interactive/HeroMarquee.astro'
+import Liquid from '@/components/astro/fragments/interactive/liquid/Liquid.astro'
+import LinkButton from '@/components/astro/markdown/LinkButton.astro'
+import WelcomeHeader from '@/components/astro/pages/home/WelcomeHeader.astro'
+import ProjectList from '@/components/astro/project/ProjectList.astro'
+import Base from '@/layouts/Base.astro'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/utils/consts'
+import { getCollection } from 'astro:content'
+
+const projects = (
+  await getCollection('project', filters => filters.slug.startsWith('ru/'))
+).sort(
+  (a, b) =>
+    (b.data.dateStart?.valueOf() || 0) - (a.data.dateStart?.valueOf() || 0)
+);
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <HeroMarquee />
+  <WelcomeHeader class="relative z-10" />
+  <p class="text-lg sm:mt-6 mt-12">
+    Фулл-стек разработчик с более чем 12-летним опытом. Экспертиза в создании
+    сложных веб-приложений, криптовалютных кошельков, систем управления
+    контентом и автоматизации бизнес-процессов. Успешно руководил командами
+    разработчиков, внедрял процессы CI/CD и проектировал архитектуры для
+    высоконагруженных приложений.
+  </p>
+  <div class="relative z-10 grid grid-cols-2 gap-4 mt-6">
+    <LinkButton
+      href="/cv/Aleksey Semenov CV (RU).pdf"
+      target="_blank"
+      image={PdfIcon}
+      loading="eager"
+      class="sm:col-span-2"
+    >
+    Скачать резюме
+  </LinkButton>
+    <LinkButton
+      href="/"
+      image={EnglishIcon}
+      loading="eager"
+      class="sm:col-span-2"
+    >Английский вариант
+  </LinkButton>
+    <LinkButton
+      href="https://t.me/maclonaky"
+      image={TelegramIcon}
+      target="_blank"
+      loading="eager"
+      class="col-span-2"
+    >
+      Написать мне
+    </LinkButton>
+  </div>
+  <div class="mt-14">
+    <ProjectList projects={projects} />
+  </div>
+  <div class="mt-10">
+    <Liquid>
+      <div class="text-lg">
+        Много текста уже было, может, пора сделать небольшой перерыв?<br />
+        Но будьте осторожны, нажимая на эту кнопку! Отличного дня! 😄
+      </div>
+    </Liquid>
+  </div>
+</Base>

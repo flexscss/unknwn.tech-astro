@@ -1,0 +1,23 @@
+---
+import PostCard from '@/components/astro/shared/content/PostCard.astro'
+import Base from '@/layouts/Base.astro'
+import { type CollectionEntry, getCollection } from 'astro:content'
+
+export async function getStaticPaths() {
+  const works = await getCollection('work')
+  return works.map(work => ({
+    params: { slug: work.data.alias },
+    props: work
+  }))
+}
+type Props = CollectionEntry<'work'>
+
+const work = Astro.props
+const { Content } = await work.render();
+---
+
+<Base {...work.data}>
+  <PostCard {...work.data}>
+    <Content />
+  </PostCard>
+</Base>

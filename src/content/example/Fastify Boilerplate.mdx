@@ -1,0 +1,47 @@
+---
+title: 'Fastify Boilerplate'
+alias: 'fastify-boilerplate'
+description: 'A fun and modern REST API template powered by Fastify and Prisma. Includes local auth, Redis sessions, Telegram Mini Apps authentication, and an experimental Vue 3 dashboard generator. 🚀  '
+heroImage: '/examples/fastify-boilerplate/hero.png'
+heroImageBlurAmount: 5
+order: 2
+---
+import Container from '@/components/astro/markdown/Container.astro'
+import BigImage from '@/components/astro/markdown/BigImage.astro'
+
+<Container>
+
+*⚠️ Work in progress! Expect some surprises along the way.*
+
+This is not just another REST API template—it's **Fastify with flair**! 🎉  
+Under the hood, we’ve got **Fastify** and **Prisma**, so you know it’s all about speed, reliability, and modern vibes.  
+
+## What’s inside?  
+- 🔒 **Local authentication**: Because no one likes uninvited guests.  
+- ⚡ **Redis-powered sessions**: Fast, efficient, and headache-free.  
+- 🤖 **Telegram Mini Apps authentication**: For when you want your bots and mini-apps to feel right at home.  
+
+## Experimental Feature Alert! 🚧  
+We’ve got a **Vue 3 dashboard generator** for managing model content! 🛠️  
+It’s still in the *playground phase*—think of it as a fun test bed for trying out cool ideas and hypotheses. The script scans controller, route, and model files to generate configurations for Vue.
+
+Well, it’s not *perfect* for complex projects yet. The plan is to switch to a more predictable flow:  
+✨ Add comments above the controllers or routes you want in the dashboard, then let the script parse only those.  
+
+<div class="flex items-center justify-center">
+	<video autoplay muted loop class="w-[150%] sm:w-[100%] rounded-2xl max-w-none">
+		<source src="/videos/examples/fastify-boilerplate/demonstrate.mp4" type="video/mp4" />
+	</video>
+
+</div>
+
+## Why JavaScript?  
+Because sometimes you need to take a break from the *strict world of type tables* and go back to basics. 🥹 Let’s remember the simpler times before we traded code for type-safe tablecloths!
+
+Check out an example below and don’t forget—you can always peek at the code on GitHub. 📂 Happy coding! 😎
+
+import GithubLink from '@/components/astro/markdown/GithubLink.astro'
+
+<GithubLink href="https://github.com/flexscss/unkn" class="w-full" />
+
+</Container>

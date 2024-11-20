@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import ProjectSidebar from '@/components/astro/project/ProjectSidebar.astro'
+import ProjectItem from './ProjectItem.astro'
+
+type Props = {
+  projects: CollectionEntry<'project'>[]
+}
+
+let { projects } = Astro.props
+projects = projects.filter(project => !project.slug.includes('subproject'))
+---
+
+<div class="relative">
+  <div class="sticky top-0 left-0 h-0">
+    <ProjectSidebar projects={projects} />
+  </div>
+  {
+    projects.map(project => (
+      <ProjectItem project={project} class="mb-12 last:mb-0" />
+    ))
+  }
+</div>
